@@ -10,12 +10,22 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "role")
 public class Role {
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="role_id")
 	private int id;
 	@Column(name="role")
 	private String role;
+	
+	public Role(){
+		
+	}
+	
+	public Role(int id,String role){
+		this.id = id;
+		this.role = role;
+	}
 	
 	public int getId() {
 		return id;

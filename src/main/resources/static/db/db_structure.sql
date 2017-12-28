@@ -1,6 +1,6 @@
--- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.9
 --
--- Host: localhost    Database: spring-security-tutorial
+-- Host: localhost    
 -- ------------------------------------------------------
 -- Server version	5.7.11-log
 
@@ -77,4 +77,4 @@ CREATE TABLE `user_role` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-16 13:21:44
+

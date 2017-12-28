@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import io.swagger.annotations.*;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ public class LoginController {
 	@Autowired
 	private UserService userService;
 
+	@ApiOperation(value = "Login a User")
 	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
 		ModelAndView modelAndView = new ModelAndView();
@@ -27,7 +30,7 @@ public class LoginController {
 		return modelAndView;
 	}
 	
-	
+	@ApiOperation(value = "Register a User")
 	@RequestMapping(value="/registration", method = RequestMethod.GET)
 	public ModelAndView registration(){
 		ModelAndView modelAndView = new ModelAndView();
@@ -37,6 +40,13 @@ public class LoginController {
 		return modelAndView;
 	}
 	
+	
+	@ApiOperation(value = "Register a User")
+	@ApiResponses(value = {
+	        @ApiResponse(code = 200, message = "Successfully"),
+	        @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+	        @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+	        @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")})
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -52,19 +62,20 @@ public class LoginController {
 			userService.saveUser(user);
 			modelAndView.addObject("successMessage", "User has been registered successfully");
 			modelAndView.addObject("user", new User());
-			modelAndView.setViewName("registration");
+			modelAndView.setViewName("login");
 			
 		}
 		return modelAndView;
 	}
 	
+	@ApiOperation(value = "Route Admin")
 	@RequestMapping(value="/admin/home", method = RequestMethod.GET)
 	public ModelAndView home(){
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
 		modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-		modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
+		modelAndView.addObject("adminMessage","You found the 'hidden egg'");
 		modelAndView.setViewName("admin/home");
 		return modelAndView;
 	}
